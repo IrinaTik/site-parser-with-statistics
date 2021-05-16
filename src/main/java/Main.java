@@ -1,3 +1,9 @@
+import Data.Word;
+import Helpers.HTMLParser;
+import Helpers.SessionHelper;
+import Helpers.TextParser;
+import org.hibernate.Session;
+
 import java.util.Map;
 import java.util.Scanner;
 
@@ -14,10 +20,20 @@ public class Main {
         String text = HTMLParser.parseHTML(siteUrl);
         Map<String, Integer> statistic = TextParser.parseText(text);
 
+        SessionHelper sh = new SessionHelper();
+        Session session = sh.getSession();
+
         System.out.println("Всего слов: " + statistic.size());
         for (Map.Entry<String, Integer> entry : statistic.entrySet()) {
-            System.out.println(entry.getKey() + " - " + entry.getValue());
+            session.beginTransaction();
+            Word word = new Word();
+            word.setContext(entry.getKey());
+            word.setCount(entry.getValue());
+            session.save(word);
+            session.getTransaction().commit();
         }
+
+        sh.stop();
     }
 
 }
