@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 public class TextParser {
 
+    // список разделителей
     private final static char[] DIVIDERS = {' ', ',', '.', '!', '?','"', ';', ':', '[', ']', '(', ')', '\n', '\r', '\t', '»', '«', '\'', '/', '—'};
 
     public static Map<String, Integer> parseText(String text) {
