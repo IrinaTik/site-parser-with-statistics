@@ -32,18 +32,7 @@ public class Main {
             Session session = sh.getSession();
 
             // получение текста с сайта
-            String text = HTMLParser.parseHTML(siteUrl);
-
-            // запись полученного текста в файл
-            try {
-                PrintWriter writer = new PrintWriter(FILE_PATH);
-                writer.write(text);
-                writer.flush();
-                writer.close();
-            } catch (FileNotFoundException e) {
-                System.out.println("Saving to file failed. File " + FILE_PATH);
-                System.out.println(e.getMessage());
-            }
+            String text = HTMLParser.parseHTML(siteUrl, FILE_PATH);
 
             // подсчет статистики
             Map<String, Integer> statistic = TextParser.parseText(text);
@@ -63,6 +52,9 @@ public class Main {
             sh.stop();
         } catch (ServiceException e) {
             System.out.println("Cannot connect to SQL base");
+            System.out.println(e.getMessage());
+        } catch (FileNotFoundException e) {
+            System.out.println("Cannot write to file, file not found - " + FILE_PATH);
             System.out.println(e.getMessage());
         } catch (MalformedURLException | IllegalArgumentException e) {
             System.out.println("Wrong URL format");

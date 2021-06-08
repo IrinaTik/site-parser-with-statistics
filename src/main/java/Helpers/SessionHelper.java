@@ -16,6 +16,7 @@ public class SessionHelper {
         init();
     }
 
+    // инициализация соединения с БД
     private void init() {
         StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
         Metadata metadata = new MetadataSources(registry).getMetadataBuilder().build();
@@ -23,6 +24,7 @@ public class SessionHelper {
         session = sessionFactory.openSession();
     }
 
+    // останов
     public void stop() {
         session.close();
         sessionFactory.close();

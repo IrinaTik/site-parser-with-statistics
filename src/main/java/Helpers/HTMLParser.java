@@ -1,22 +1,37 @@
 package Helpers;
 
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.URL;
+import java.net.URLConnection;
 
 public class HTMLParser {
 
-    public static String parseHTML(String siteUrl) throws IOException {
-        Connection connection = Jsoup.connect(siteUrl).maxBodySize(0);
-        Connection.Response response = connection.execute();
-        int statusCode = response.statusCode();
-        if (statusCode == 200) {
-            Document doc = connection.get();
-            return doc.body().text();
+    public static String parseHTML(String siteUrl, String filePath) throws IOException {
+        // открытие соединения с сайтом
+        URLConnection url = new URL(siteUrl).openConnection();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(url.getInputStream()));
+        StringBuilder builder = new StringBuilder();
+        String inputLine;
+
+        // построчное считываение кода страницы и запись этого кода в файл
+        PrintWriter writer = new PrintWriter(filePath);
+        while ((inputLine = reader.readLine()) != null) {
+            builder.append(inputLine);
+            writer.write(inputLine + "\n");
         }
-        throw new IOException("Received error code " + statusCode);
+        reader.close();
+        writer.flush();
+        writer.close();
+
+        // получение текста из кода страницы
+        Document doc = Jsoup.parse(builder.toString());
+        return doc.body().text();
     }
 
 }
