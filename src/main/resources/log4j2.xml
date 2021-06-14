@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="WARN">
+    <properties>
+        <property name = "fInfo">logs/info.log</property>
+        <property name = "fErrors">logs/exceptions.log</property>
+    </properties>
+
+    <appenders>
+        <Console name="STDOUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level @line:%L %msg%n"/>
+            <MarkerFilter  marker="error" onMatch="ACCEPT" onMismatch="DENY"/>
+        </Console>
+        <File name="InfoFile" fileName="${fInfo}">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %msg%n"/>
+            <MarkerFilter  marker="info" onMatch="ACCEPT" onMismatch="DENY"/>
+        </File>
+        <File name="ErrorFile" fileName="${fErrors}">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level @line:%L %msg%n"/>
+            <MarkerFilter  marker="error" onMatch="ACCEPT" onMismatch="DENY"/>
+        </File>
+    </appenders>
+
+    <loggers>
+        <root level="info" additivity="false">
+            <appender-ref ref="STDOUT" level="error"/>
+            <appender-ref ref="InfoFile" level="info"/>
+            <appender-ref ref="ErrorFile" level="error"/>
+        </root>
+    </loggers>
+</configuration>
