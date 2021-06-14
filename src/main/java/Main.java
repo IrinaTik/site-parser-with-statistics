@@ -7,7 +7,6 @@ import org.hibernate.service.spi.ServiceException;
 
 import javax.net.ssl.SSLHandshakeException;
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 import java.util.Map;
@@ -15,10 +14,7 @@ import java.util.Scanner;
 
 public class Main {
 
-//    private final static char[] DIVIDERS = {' ', ',', '.', '!', '?','"', ';', ':', '[', ']', '(', ')', '\n', '\r', '\t'};
-//    private final static String S = "Hello(World)How:are;You;doing,today?You!sir.I mean\nyot";
-
-    private final static String FILE_PATH = "1.txt";
+    private final static String FILE_PATH = "siteCode.txt";
 
     public static void main(String[] args) {
 

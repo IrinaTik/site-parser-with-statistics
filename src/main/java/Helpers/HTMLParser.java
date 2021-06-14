@@ -19,7 +19,7 @@ public class HTMLParser {
         StringBuilder builder = new StringBuilder();
         String inputLine;
 
-        // построчное считываение кода страницы и запись этого кода в файл
+        // построчное считывание кода страницы и запись этого кода в файл
         PrintWriter writer = new PrintWriter(filePath);
         while ((inputLine = reader.readLine()) != null) {
             builder.append(inputLine);
